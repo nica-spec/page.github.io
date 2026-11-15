@@ -223,6 +223,14 @@
                 <div id="m-score-inputs" class="score-inputs-container">
                     <!-- JS sẽ sinh ra các ô nhập dựa vào số cột -->
                 </div>
+                <div class="score-col bonus-score-row" style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                    <label for="m-bonus-weight" style="font-weight:700;">Điểm cộng (tùy chọn):</label>
+                    <span>%</span>
+                    <input id="m-bonus-weight" type="number" class="score-input-mini" min="0" step="any" placeholder="VD: 10" aria-label="Trọng số điểm cộng, có thể vượt 100%">
+                    <span>Điểm</span>
+                    <input id="m-bonus-score" type="number" class="score-input-mini" min="0" max="10" step="any" placeholder="VD: 8" aria-label="Điểm thành phần được cộng">
+                    <small style="flex-basis:100%;">Không bắt buộc. % điểm cộng có thể vượt 100%, không tính vào tổng trọng số 100% của các cột thường. Điểm tổng kết tối đa 10.</small>
+                </div>
             </div>
 
             <div class="modal-row">
@@ -277,6 +285,14 @@
                 <label class="section-title">Nhập trọng số và điểm của từng cột:</label>
                 <div id="e-score-inputs" class="inline-scores-container">
                     <!-- JS sẽ sinh ra các ô nhập xếp ngang tại đây -->
+                </div>
+                <div class="bonus-score-row" style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                    <label for="e-bonus-weight" style="font-weight:700;">Điểm cộng (tùy chọn):</label>
+                    <span>%</span>
+                    <input id="e-bonus-weight" type="number" class="gray-pill mini-pill" min="0" step="any" placeholder="VD: 10" aria-label="Trọng số điểm cộng, có thể vượt 100%">
+                    <span>Điểm</span>
+                    <input id="e-bonus-score" type="number" class="gray-pill mini-pill" min="0" max="10" step="any" placeholder="VD: 8" aria-label="Điểm thành phần được cộng">
+                    <small style="flex-basis:100%;">Để trống nếu không có điểm cộng. % điểm cộng có thể vượt 100%. Điểm tổng kết tối đa 10.</small>
                 </div>
             </div>
 
