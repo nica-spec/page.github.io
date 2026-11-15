@@ -3389,8 +3389,26 @@ if (window.location.pathname.includes('module-skills.html')) {
         const totalCreds = 2;
         const totalCourses = 3;
         const processedCodes = new Set();
+        const totalCountEl = document.getElementById('major-course-total');
+        if (totalCountEl) totalCountEl.textContent = `${totalCourses} môn trong danh sách`;
 
+        const groupHeaders = {
+            major_core: 'NHÓM 1 – KIẾN THỨC BẮT BUỘC CHUYÊN NGÀNH (CHỌN TỐI THIỂU 16 TÍN CHỈ)',
+            major_elective: 'NHÓM 2 – KIẾN THỨC TỰ CHỌN CHUYÊN NGÀNH (CHỌN TỐI THIỂU 8 TÍN CHỈ)'
+        };
+        let previousGroup = null;
         courseData.forEach(c => {
+            if (c.section !== previousGroup) {
+                previousGroup = c.section;
+                const heading = document.createElement('tr');
+                heading.className = 'major-section-header';
+                const cell = document.createElement('td');
+                cell.colSpan = 10;
+                cell.style.cssText = 'background:#fff3c4;color:#92400e;font-weight:800;text-align:left;padding:14px 16px;border-top:2px solid #eab308;white-space:normal;';
+                cell.textContent = groupHeaders[c.section] || 'NHÓM HỌC PHẦN KHÁC';
+                heading.appendChild(cell);
+                tbody.appendChild(heading);
+            }
             const tr = document.createElement('tr');
             
             if (c.isHeader) {
@@ -3652,6 +3670,20 @@ if (window.location.pathname.includes('module-language.html')) {
             }
             tbody.appendChild(tr);
         });
+        const group3Heading = document.createElement('tr');
+        const group3Cell = document.createElement('td');
+        group3Cell.colSpan = 10;
+        group3Cell.style.cssText = 'background:#fff3c4;color:#92400e;font-weight:800;text-align:left;padding:14px 16px;border-top:2px solid #eab308;white-space:normal;';
+        group3Cell.textContent = 'NHÓM 3 – KIẾN THỨC TỰ CHỌN TỰ DO (BỔ SUNG ĐỂ ĐỦ 34 TÍN CHỈ)';
+        group3Heading.appendChild(group3Cell);
+        tbody.appendChild(group3Heading);
+        const group3NoteRow = document.createElement('tr');
+        const group3NoteCell = document.createElement('td');
+        group3NoteCell.colSpan = 10;
+        group3NoteCell.style.cssText = 'text-align:left;padding:14px 16px;white-space:normal;color:#64748b;font-style:italic;';
+        group3NoteCell.textContent = 'Chọn học phần hợp lệ tại Phụ lục 1 nếu tổng tín chỉ của Nhóm 1 và Nhóm 2 chưa đủ 34. Xem hướng dẫn chi tiết bên dưới bảng.';
+        group3NoteRow.appendChild(group3NoteCell);
+        tbody.appendChild(group3NoteRow);
 
         // 1. Cập nhật thanh tiến độ góc phải (đồng bộ 100% với trang Khung CTĐT)
         const percent = Math.min(Math.round((passedCreds / totalCreds) * 100), 100) || 0;
@@ -3828,7 +3860,7 @@ if (window.location.pathname.includes('module-major.html')) {
         document.getElementById('display-mssv').textContent = `MSSV: ${currentUser.studentId}`;
 
         // Danh sách môn học chuẩn của nhóm Chuyên ngành (Mục tiêu: 34 tín chỉ)
-        const courseData = CTDT_KHMT_2025.major.map((c,i)=>({...c,stt:String(i+1),name:(c.section==='major_core'?'[Nhóm ≥16 TC] ':'[Nhóm ≥8 TC] ')+c.name}));
+        const courseData = CTDT_KHMT_2025.major.map((c,i)=>({...c,stt:String(i+1)}));
 
         const gradesList = getLatestCourses((currentUser.stats && currentUser.stats.gradesList) ? currentUser.stats.gradesList : []);
         const tbody = document.getElementById('course-table-body-major');
