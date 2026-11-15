@@ -2112,6 +2112,28 @@ if (window.location.pathname.includes('grades.html')) {
                 }
             });
 
+            // Đề nghị bổ sung các môn học trước còn thiếu cho những học phần có trong bảng điểm.
+            // Chỉ kiểm tra đã học/đã đạt; không xét thứ tự học kỳ, không coi là tiên quyết bắt buộc.
+            const recordedCodes = new Set(userGrades.map(g => String(g.code || '').trim().toUpperCase()));
+            const completedCodes = new Set(userGrades.filter(isPassedCourse).map(g => String(g.code || '').trim().toUpperCase()));
+            const missingPrior = new Map();
+            userGrades.forEach(course => {
+                const targetCode = String(course.code || '').trim().toUpperCase();
+                for (const priorCode of K2025_SUGGESTED_PRIOR[targetCode] || []) {
+                    if (recordedCodes.has(priorCode)) continue;
+                    if (!missingPrior.has(priorCode)) missingPrior.set(priorCode, []);
+                    missingPrior.get(priorCode).push(targetCode);
+                }
+            });
+            const priorRecommendations = [...missingPrior].map(([code, targets]) => ({
+                code,
+                name: courseDictionary[code] || CTDT_COURSE_INDEX[code]?.name || 'Học phần chưa có tên',
+                targets: [...new Set(targets)],
+                // Trạng thái này được giữ để tiện mở rộng, không coi môn đã học nhưng chưa đạt là chưa học.
+                passed: completedCodes.has(code)
+            })).sort((a, b) => a.code.localeCompare(b.code));
+            const recommendationText = item => `${escapeReportHTML(item.code)} — ${escapeReportHTML(item.name)}`;
+
             const recommendContainer = document.getElementById('recommend-container');
             if (recommendContainer) {
                 let html = `<h3 style="color: #1a498b; margin-top: 0; margin-bottom: 15px; text-align: center; font-size: 1.1rem;">Khuyến nghị</h3>`;
@@ -2133,7 +2155,30 @@ if (window.location.pathname.includes('grades.html')) {
                     html += `<button id="btn-show-more-recommend" style="background: none; border: none; color: #1a498b; font-weight: bold; cursor: pointer; padding: 0; text-decoration: underline; margin-top: 5px;">Xem thêm</button>`;
                 }
 
+                html += `<div style="border-top:1px solid #e2e8f0;margin-top:12px;padding-top:12px">
+                    <strong style="color:#1a498b">Đề nghị học phần học trước</strong>
+                    <p style="margin:6px 0">${priorRecommendations.length
+                        ? `Có <strong>${priorRecommendations.length}</strong> học phần học trước chưa có trong bảng điểm.`
+                        : 'Không phát hiện học phần học trước chưa học đối với các môn đã nhập.'}</p>
+                    ${priorRecommendations.length ? `<ul style="padding-left:20px;margin:6px 0">
+                        ${priorRecommendations.slice(0, 3).map(item => `<li>${recommendationText(item)}</li>`).join('')}
+                    </ul>` : ''}
+                    ${priorRecommendations.length > 3 ? '<button type="button" id="btn-show-prior-recommend" style="background:none;border:0;color:#1a498b;font-weight:700;text-decoration:underline;cursor:pointer;padding:4px 0">Xem toàn bộ đề nghị</button>' : ''}
+                    <p style="font-size:12px;color:#64748b;margin-top:8px">Đây là các môn đề nghị học trước, không phải điều kiện đăng ký bắt buộc.</p>
+                </div>`;
                 recommendContainer.innerHTML = html;
+                document.getElementById('btn-show-prior-recommend')?.addEventListener('click', () => {
+                    const modal = document.getElementById('recommend-modal');
+                    const content = document.getElementById('recommend-modal-content');
+                    if (!modal || !content) return;
+                    content.innerHTML = '<h4>Các môn học trước được đề nghị</h4><ul>' +
+                        priorRecommendations.map(item => `<li style="margin-bottom:8px">
+                            <strong>${recommendationText(item)}</strong>
+                            <div style="color:#64748b;font-size:12px">Được đề nghị cho:
+                                ${item.targets.map(code => escapeReportHTML(code)).join(', ')}</div></li>`).join('') +
+                        '</ul><p style="font-size:12px">Đề nghị tham khảo theo CTĐT K2025.</p>';
+                    modal.style.display = 'flex';
+                });
 
                 const btnShowMore = document.getElementById('btn-show-more-recommend');
                 if (btnShowMore) {
