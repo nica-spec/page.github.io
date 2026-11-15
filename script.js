@@ -2375,8 +2375,10 @@ if (window.location.pathname.includes('grades.html')) {
             manualNamePreview.textContent = '';
             hideManualSuggestions();
             document.getElementById('m-cols').value = '';
-            document.getElementById('m-bonus-weight').value = '';
-            document.getElementById('m-bonus-score').value = '';
+            const bonusWeightInput = document.getElementById('m-bonus-weight');
+            const bonusScoreInput = document.getElementById('m-bonus-score');
+            if (bonusWeightInput) bonusWeightInput.value = '';
+            if (bonusScoreInput) bonusScoreInput.value = '';
         });
         document.getElementById('btn-cancel-modal').addEventListener('click', () => { modal.style.display = 'none'; hideManualSuggestions(); });
 
@@ -2404,8 +2406,12 @@ if (window.location.pathname.includes('grades.html')) {
 
         // Điểm cộng là thành phần cố định, tùy chọn; không nằm trong tổng 100% trọng số.
         function readBonusScore(prefix) {
-            const weightValue = document.getElementById(prefix + '-bonus-weight').value.trim();
-            const scoreValue = document.getElementById(prefix + '-bonus-score').value.trim();
+            const weightInput = document.getElementById(prefix + '-bonus-weight');
+            const scoreInput = document.getElementById(prefix + '-bonus-score');
+            // Tương thích khi HTML cũ còn trong cache: thiếu ô điểm cộng nghĩa là không cộng.
+            if (!weightInput || !scoreInput) return { weight: 0, score: 0, amount: 0, present: false };
+            const weightValue = weightInput.value.trim();
+            const scoreValue = scoreInput.value.trim();
             if (!weightValue && !scoreValue) return { weight: 0, score: 0, amount: 0, present: false };
             const weight = Number(weightValue);
             const score = Number(scoreValue);
@@ -2697,8 +2703,10 @@ if (window.location.pathname.includes('grades.html')) {
             document.getElementById('e-cols').value = count;
 
             generateEditScoreInputs(count, existingScores);
-            document.getElementById('e-bonus-weight').value = course.bonusScore?.weight ?? '';
-            document.getElementById('e-bonus-score').value = course.bonusScore?.score ?? '';
+            const editBonusWeight = document.getElementById('e-bonus-weight');
+            const editBonusScore = document.getElementById('e-bonus-score');
+            if (editBonusWeight) editBonusWeight.value = course.bonusScore?.weight ?? '';
+            if (editBonusScore) editBonusScore.value = course.bonusScore?.score ?? '';
             editModal.style.display = 'flex';
         };
 
