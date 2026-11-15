@@ -32,37 +32,15 @@
     return grade.score !== '' && grade.score != null &&
       Number.isFinite(score) && Math.round(score * 10) / 10 >= 5;
   }
-  function period(grade) {
-    const year = String(grade.year || '').match(/\d{2,4}/);
-    const sem = Number(grade.sem);
-    if (!year || ![1, 2, 3].includes(sem)) return null;
-    const start = Number(year[0]);
-    return (start < 100 ? 2000 + start : start) * 10 + sem;
-  }
-  function targetPeriod() {
-    return period({
-      year: document.getElementById('m-year')?.value || document.getElementById('check-course-year')?.value || '25 - 26',
-      sem: document.querySelector('#m-sem-group .pill-btn.active')?.dataset.val || document.getElementById('check-course-sem')?.value || '1'
-    });
-  }
   function statusFor(code) {
     const rows = userGrades().filter(g => normalize(g.code) === code);
-    const target = targetPeriod();
-    const passed = rows.filter(isPassed);
-    if (passed.length) {
-      if (target !== null && passed.some(g => period(g) !== null && period(g) < target)) {
-        return { label: 'Đã học và đạt trước học kỳ này', color: '#15803d', ok: true };
-      }
-      if (target !== null && passed.some(g => period(g) === target)) {
-        return { label: 'Đã đạt trong cùng học kỳ (không phải học trước)', color: '#b45309', ok: false };
-      }
-      if (target !== null && passed.some(g => period(g) !== null && period(g) > target)) {
-        return { label: 'Đã đạt ở học kỳ sau (không tính là học trước)', color: '#b45309', ok: false };
-      }
-      return { label: 'Đã đạt, chưa xác định được thời điểm học', color: '#b45309', ok: false };
+    if (rows.some(isPassed)) {
+      return { label: 'Đã đạt', color: '#15803d', state: 'passed' };
     }
-    if (rows.length) return { label: 'Đã học nhưng chưa đạt', color: '#b91c1c', ok: false };
-    return { label: 'Chưa có trong bảng điểm', color: '#b91c1c', ok: false };
+    if (rows.length) {
+      return { label: 'Đã học nhưng chưa đạt', color: '#b45309', state: 'studied' };
+    }
+    return { label: 'Chưa học', color: '#b91c1c', state: 'missing' };
   }
   function render() {
     const raw = normalize(input.value);
@@ -85,28 +63,28 @@
     const notes = requirements.notes?.[code] || {};
     const dict = typeof courseDictionary !== 'undefined' ? courseDictionary : {};
     const details = prior.map(id => ({ id, ...statusFor(id), note: notes[id] || '' }));
-    const satisfied = details.filter(item => item.ok).length;
+    const passed = details.filter(item => item.state === 'passed').length;
+    const studied = details.filter(item => item.state === 'studied').length;
+    const missing = details.filter(item => item.state === 'missing');
     panel.innerHTML = `
       <div style="font-weight:700;color:#174575;margin-bottom:8px">Kiểm tra học phần học trước: ${escapeHTML(code)}</div>
       ${prior.length ? `
-        <div style="font-weight:600;margin-bottom:6px">Học phần đề nghị học trước (${satisfied}/${details.length} đã đạt trước học kỳ đang chọn):</div>
+        <div style="font-weight:600;margin-bottom:6px">Học phần đề nghị học trước (${passed} đã đạt, ${studied} đã học nhưng chưa đạt, ${missing.length} chưa học):</div>
         <ul style="padding-left:18px;margin:0">
           ${details.map(item => `<li style="margin-bottom:8px">
             <strong>${escapeHTML(item.id)}</strong> — ${escapeHTML(dict[item.id] || 'Chưa có tên trong danh mục')}
             <div style="color:${item.color};font-weight:600">${escapeHTML(item.label)}</div>
+            ${item.state === 'missing' ? '<div style="color:#1d4ed8">Đề nghị học học phần này.</div>' : ''}
             ${item.note ? `<small style="color:#64748b">Ghi chú: ${escapeHTML(item.note)}</small>` : ''}
           </li>`).join('')}
-        </ul>` : '<div>Không có học phần đề nghị học trước trong dữ liệu K2025.</div>'}
+        </ul>
+        ${missing.length ? `<div style="margin-top:10px;font-weight:600;color:#1d4ed8">Đề nghị học: ${missing.map(item => escapeHTML(item.id) + ' — ' + escapeHTML(dict[item.id] || 'Chưa có tên trong danh mục')).join('; ')}</div>` : ''}` : '<div>Không có học phần đề nghị học trước trong dữ liệu K2025.</div>'}
       <small style="display:block;margin-top:8px;color:#64748b">
         Đây là thông tin tham khảo theo bảng điểm đã nhập. Thiếu môn đề nghị học trước không đồng nghĩa bị cấm đăng ký.
       </small>`;
   }
   input.addEventListener('input', render);
-  document.getElementById('check-course-year')?.addEventListener('change', render);
-  document.getElementById('check-course-sem')?.addEventListener('change', render);
   input.addEventListener('change', render);
-  document.getElementById('m-year')?.addEventListener('change', render);
-  document.querySelectorAll('#m-sem-group .pill-btn').forEach(btn => btn.addEventListener('click', () => setTimeout(render, 0)));
   document.getElementById('m-course-suggestions')?.addEventListener('click', () => setTimeout(render, 0));
   document.getElementById('btn-add-manual')?.addEventListener('click', () => setTimeout(render, 0));
   // Duy trì hiển thị khi tên học phần được cập nhật bằng hàm chọn gợi ý.
