@@ -101,9 +101,15 @@ self.addEventListener('fetch', event => {
 });
 
 self.addEventListener('message', event => {
-  if (event.data?.type !== 'OFFLINE_STATUS') return;
+  if (!['OFFLINE_STATUS', 'PREPARE_OFFLINE'].includes(event.data?.type)) return;
   event.waitUntil((async () => {
     const cache = await caches.open(SHELL_CACHE);
+    if (event.data.type === 'PREPARE_OFFLINE') {
+      await Promise.all(ONLINE_LIBRARIES.map(url => cacheResource(cache, url)));
+      for (const path of APP_SHELL) {
+        if (!(await cache.match(path))) await cacheResource(cache, path);
+      }
+    }
     const missing = [];
     for (const url of APP_SHELL) {
       if (!(await cache.match(url))) missing.push(url);
