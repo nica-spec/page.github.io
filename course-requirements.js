@@ -7,6 +7,14 @@
   if (!input || !panel) return;
 
   const normalize = value => String(value || '').trim().toUpperCase();
+  const catalog = typeof courseDictionary !== 'undefined' ? courseDictionary : {};
+  const list = document.getElementById('check-course-list');
+  if (list) Object.entries(catalog).forEach(([code, name]) => {
+    const opt = document.createElement('option');
+    opt.value = code;
+    opt.label = name;
+    list.appendChild(opt);
+  });
   const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, char =>
     ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   let requirements = null;
@@ -59,8 +67,9 @@
     return { label: 'Chưa có trong bảng điểm', color: '#b91c1c', ok: false };
   }
   function render() {
-    const code = normalize(input.value);
-    if (!code || !window.courseDictionary?.[code] && !(typeof courseDictionary !== 'undefined' && courseDictionary[code])) {
+    const raw = normalize(input.value);
+    const code = catalog[raw] ? raw : (Object.entries(catalog).find(([id,name]) => normalize(name) === raw)?.[0] || raw);
+    if (!code || !catalog[code]) {
       panel.hidden = true;
       panel.innerHTML = '';
       return;
