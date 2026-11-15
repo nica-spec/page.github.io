@@ -1,5 +1,38 @@
 // CTĐT ngành Khoa học máy tính, khóa tuyển 2025; căn cứ Quyết định 2818/QĐ-KHTN (19/09/2025).
 // Các danh mục tự chọn là PHƯƠNG ÁN lựa chọn, không có nghĩa sinh viên phải học tất cả.
+// Chuẩn bị ứng dụng để hoạt động ngoại tuyến sau lần truy cập có Internet.
+(function enableOfflineMode() {
+    if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
+    window.addEventListener('load', async () => {
+        try {
+            const registration = await navigator.serviceWorker.register('./service-worker.js', { scope: './' });
+            await navigator.serviceWorker.ready;
+            // Trang chính có thể truy cập offline ngay sau khi cài Service Worker thành công.
+            document.documentElement.dataset.offlineSupported = 'true';
+            if (registration.active) {
+                registration.active.postMessage({ type: 'OFFLINE_STATUS' });
+            }
+        } catch (error) {
+            console.warn('Không thể chuẩn bị chế độ ngoại tuyến:', error);
+        }
+    });
+    navigator.serviceWorker.addEventListener('message', event => {
+        if (event.data?.type !== 'OFFLINE_STATUS') return;
+        document.documentElement.dataset.offlineReady = String(!!event.data.ready);
+        if (!event.data.ready) {
+            console.warn('Tài nguyên chưa đủ để dùng ngoại tuyến:', event.data.missing, event.data.unavailableLibraries);
+        }
+    });
+    window.addEventListener('offline', () => {
+        document.documentElement.dataset.connection = 'offline';
+        console.info('Đang dùng dữ liệu được lưu trên thiết bị.');
+    });
+    window.addEventListener('online', () => {
+        document.documentElement.dataset.connection = 'online';
+    });
+    document.documentElement.dataset.connection = navigator.onLine ? 'online' : 'offline';
+})();
+
 const CTDT_KHMT_2025 = {
   "politics": [
     {
