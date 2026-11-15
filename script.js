@@ -3530,7 +3530,7 @@ if (window.location.pathname.includes('module-it.html')) {
             tr.innerHTML = `
                 <td>${c.stt}</td>
                 <td>${c.code}</td>
-                <td style="text-align: center; font-weight: 600;">${c.name}</td>
+                <td style="text-align: center; font-weight: 600;">${c.name.replace(/^\[Nhóm[^\]]+\]\s*/i, "")}</td>
                 <td>${c.tc}</td>
                 <td>${c.type}</td>
                 <td>${c.lt}</td><td>${c.th}</td><td>${c.bt}</td>
@@ -3850,7 +3850,7 @@ if (window.location.pathname.includes('module-major.html')) {
                 heading.className = 'major-section-header';
                 const cell = document.createElement('td');
                 cell.colSpan = 10;
-                cell.style.cssText = 'background:#fff3c4;color:#92400e;font-weight:800;text-align:left;padding:14px 16px;border-top:2px solid #eab308;white-space:normal;';
+                cell.style.cssText = 'background:#403456;color:#f2eaff;font-weight:800;text-align:left;padding:16px;border-top:3px solid #9881d6;white-space:normal;';
                 cell.textContent = groupHeaders[c.section] || 'NHÓM HỌC PHẦN KHÁC';
                 heading.appendChild(cell);
                 tbody.appendChild(heading);
@@ -3900,7 +3900,7 @@ if (window.location.pathname.includes('module-major.html')) {
         const group3Heading = document.createElement('tr');
         const group3Cell = document.createElement('td');
         group3Cell.colSpan = 10;
-        group3Cell.style.cssText = 'background:#fff3c4;color:#92400e;font-weight:800;text-align:left;padding:14px 16px;border-top:2px solid #eab308;white-space:normal;';
+        group3Cell.style.cssText = 'background:#21443c;color:#d5ffec;font-weight:800;text-align:left;padding:16px;border-top:3px solid #398a77;white-space:normal;';
         group3Cell.textContent = 'NHÓM 3 – KIẾN THỨC TỰ CHỌN TỰ DO (BỔ SUNG ĐỂ ĐỦ 34 TÍN CHỈ)';
         group3Heading.appendChild(group3Cell);
         tbody.appendChild(group3Heading);
