@@ -45,7 +45,7 @@
         <div class="login-card">
             <h2 class="card-title">Đăng nhập</h2>
             
-            <form class="login-form" onsubmit="event.preventDefault(); loginUser();">
+            <form class="login-form" id="auth-form">
                 <div class="form-group">
                     <label for="username" class="form-label">MSSV:</label>
                     <div class="input-wrapper">
@@ -62,7 +62,7 @@
                     </div>
                 </div>
 
-                <div class="form-actions">
+                <div class="form-actions" style="justify-content:center; padding-left:0;">
                     
                     <button type="submit" class="btn-submit">Đăng nhập</button>
                 </div>
@@ -76,7 +76,20 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20261115-auth-fix"></script>
+    <script>
+      // Cả Enter và nút bấm đều kích hoạt submit của biểu mẫu.
+      // Chỉ gọi hàm xử lý một lần; chặn chuyển trang mặc định.
+      document.getElementById('auth-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (typeof loginUser !== 'function') {
+          console.error('Không tải được hàm loginUser từ script.js.');
+          alert('Không tải được chức năng xác thực. Vui lòng kiểm tra file script.js trên GitHub Pages và tải lại trang.');
+          return;
+        }
+        loginUser();
+      });
+    </script>
 
 </body>
 </html>
