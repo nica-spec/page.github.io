@@ -45,7 +45,7 @@
         <div class="login-card">
             <h2 class="card-title">Đăng ký</h2>
             
-            <form class="login-form">
+            <form class="login-form" onsubmit="event.preventDefault(); registerUser();">
                 <div class="form-group">
                     <label for="fullname" class="form-label">Họ và tên:</label>
                     <div class="input-wrapper">
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="form-actions register-actions">
-                    <button type="button" class="btn-submit" onclick="registerUser()">Đăng ký</button>
+                    <button type="submit" class="btn-submit">Đăng ký</button>
                 </div>
 
                 <div class="divider"></div>

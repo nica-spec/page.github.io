@@ -45,7 +45,7 @@
         <div class="login-card">
             <h2 class="card-title">Đăng nhập</h2>
             
-            <form class="login-form">
+            <form class="login-form" onsubmit="event.preventDefault(); loginUser();">
                 <div class="form-group">
                     <label for="username" class="form-label">MSSV:</label>
                     <div class="input-wrapper">
@@ -64,7 +64,7 @@
 
                 <div class="form-actions">
                     
-                    <button type="button" class="btn-submit" onclick="loginUser()">Đăng nhập</button>
+                    <button type="submit" class="btn-submit">Đăng nhập</button>
                 </div>
 
                 <div class="divider"></div>
