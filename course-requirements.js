@@ -1,5 +1,5 @@
 /* Kiểm tra học phần học trước từ dữ liệu K2025 và bảng điểm đã lưu.
- * "Học trước" trong JSON là đề nghị, KHÔNG phải tiên quyết bắt buộc.
+ * Chỉ kiểm tra các môn đề nghị học trước theo danh sách K2025.
  */
 (() => {
   const input = document.getElementById('m-code') || document.getElementById('check-course-code');
@@ -18,9 +18,7 @@
   const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, char =>
     ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   let requirements = null;
-  let prerequisiteRules = null;
   let loadError = false;
-  let mandatoryLoadError = false;
 
   function userGrades() {
     try {
@@ -79,32 +77,17 @@
       panel.textContent = 'Không tải được danh sách học phần học trước. Hãy kiểm tra kết nối và tải lại trang.';
       return;
     }
-    if (!requirements || !prerequisiteRules) {
-      panel.textContent = 'Đang tải dữ liệu điều kiện học phần…';
+    if (!requirements) {
+      panel.textContent = 'Đang tải danh sách học phần học trước…';
       return;
     }
-    const mandatory = prerequisiteRules.courses?.[code];
-    const mandatoryKnown = Array.isArray(mandatory);
-    const mandatoryDetails = mandatoryKnown ? mandatory.map(id => ({id, ...statusFor(id)})) : [];
-    const mandatoryOk = mandatoryKnown && mandatoryDetails.every(item => item.ok);
     const prior = requirements.courses?.[code] || [];
     const notes = requirements.notes?.[code] || {};
     const dict = typeof courseDictionary !== 'undefined' ? courseDictionary : {};
     const details = prior.map(id => ({ id, ...statusFor(id), note: notes[id] || '' }));
     const satisfied = details.filter(item => item.ok).length;
     panel.innerHTML = `
-      <div style="font-weight:700;color:#174575;margin-bottom:8px">Kiểm tra điều kiện học phần: ${escapeHTML(code)}</div>
-      <div style="font-size:13px;color:#475569;margin-bottom:9px">
-        <strong>Tiên quyết bắt buộc:</strong>
-        ${mandatoryLoadError ? 'Không tải được danh sách tiên quyết.' : mandatoryKnown
-          ? (mandatoryOk ? '<span style="color:#15803d">Đã đáp ứng tất cả môn tiên quyết được khai báo.</span>'
-             : '<span style="color:#b91c1c">CHƯA ĐỦ điều kiện tiên quyết theo dữ liệu đã khai báo.</span>')
-          : '<span style="color:#b45309">Chưa có dữ liệu tiên quyết được xác nhận — chưa thể kết luận đủ điều kiện đăng ký.</span>'}
-        ${mandatoryDetails.length ? `<ul style="padding-left:18px;margin:6px 0">
-          ${mandatoryDetails.map(item => `<li><strong>${escapeHTML(item.id)}</strong> — ${escapeHTML(dict[item.id] || 'Chưa có tên môn')}
-            <div style="color:${item.color}">${escapeHTML(item.label)}</div></li>`).join('')}
-          </ul>` : (mandatoryKnown && !mandatoryDetails.length ? '<div>Không có môn tiên quyết bắt buộc được khai báo.</div>' : '')}
-      </div>
+      <div style="font-weight:700;color:#174575;margin-bottom:8px">Kiểm tra học phần học trước: ${escapeHTML(code)}</div>
       ${prior.length ? `
         <div style="font-weight:600;margin-bottom:6px">Học phần đề nghị học trước (${satisfied}/${details.length} đã đạt trước học kỳ đang chọn):</div>
         <ul style="padding-left:18px;margin:0">
@@ -129,10 +112,6 @@
   // Duy trì hiển thị khi tên học phần được cập nhật bằng hàm chọn gợi ý.
   const preview = document.getElementById('m-name-preview');
   if (preview) new MutationObserver(render).observe(preview, {childList:true, characterData:true, subtree:true});
-  fetch('tien_quyet_K2025.json', {cache:'no-store'})
-    .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
-    .then(data => { prerequisiteRules = data; render(); })
-    .catch(error => { console.error('Lỗi tải tiên quyết:', error); mandatoryLoadError = true; prerequisiteRules = {courses:{}}; render(); });
   fetch('hoc_truoc_K2025.json', {cache:'no-store'})
     .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
     .then(data => { requirements = data; render(); })
