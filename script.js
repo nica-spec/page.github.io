@@ -19,9 +19,46 @@
     navigator.serviceWorker.addEventListener('message', event => {
         if (event.data?.type !== 'OFFLINE_STATUS') return;
         document.documentElement.dataset.offlineReady = String(!!event.data.ready);
+        const status = document.getElementById('offline-setup-status');
+        const btn = document.getElementById('btn-prepare-offline');
+        if (btn) btn.disabled = false;
+        if (status) {
+            if (event.data.ready) {
+                status.textContent = 'Đã sẵn sàng sử dụng ngoại tuyến trên thiết bị này.';
+                status.style.color = '#15803d';
+            } else {
+                status.textContent = navigator.onLine
+                    ? 'Chưa lưu đủ tài nguyên. Hãy nhấn “Chuẩn bị dữ liệu ngoại tuyến” khi có Internet.'
+                    : 'Thiếu tài nguyên cần thiết. Hãy kết nối Internet và chuẩn bị lại.';
+                status.style.color = '#b45309';
+            }
+        }
         if (!event.data.ready) {
             console.warn('Tài nguyên chưa đủ để dùng ngoại tuyến:', event.data.missing, event.data.unavailableLibraries);
         }
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('btn-prepare-offline');
+        const status = document.getElementById('offline-setup-status');
+        if (!btn) return;
+        if (!navigator.onLine && status) status.textContent = 'Đang ngoại tuyến. Các tài nguyên đã lưu vẫn có thể sử dụng.';
+        btn.addEventListener('click', async () => {
+            if (!navigator.onLine) {
+                if (status) status.textContent = 'Cần kết nối Internet để chuẩn bị các tài nguyên chưa lưu.';
+                return;
+            }
+            try {
+                btn.disabled = true;
+                if (status) status.textContent = 'Đang lưu trang và thư viện vào thiết bị…';
+                const reg = await navigator.serviceWorker.ready;
+                const worker = reg.active || navigator.serviceWorker.controller;
+                if (!worker) throw new Error('Service Worker chưa hoạt động');
+                worker.postMessage({ type: 'PREPARE_OFFLINE' });
+            } catch (error) {
+                btn.disabled = false;
+                if (status) status.textContent = 'Không thể chuẩn bị ngoại tuyến: ' + error.message;
+            }
+        });
     });
     window.addEventListener('offline', () => {
         document.documentElement.dataset.connection = 'offline';
