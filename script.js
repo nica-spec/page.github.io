@@ -2375,6 +2375,8 @@ if (window.location.pathname.includes('grades.html')) {
             manualNamePreview.textContent = '';
             hideManualSuggestions();
             document.getElementById('m-cols').value = '';
+            document.getElementById('m-bonus-weight').value = '';
+            document.getElementById('m-bonus-score').value = '';
         });
         document.getElementById('btn-cancel-modal').addEventListener('click', () => { modal.style.display = 'none'; hideManualSuggestions(); });
 
@@ -2399,6 +2401,21 @@ if (window.location.pathname.includes('grades.html')) {
                 e.target.classList.add('active'); selectedType = e.target.dataset.val;
             });
         });
+
+        // Điểm cộng là thành phần cố định, tùy chọn; không nằm trong tổng 100% trọng số.
+        function readBonusScore(prefix) {
+            const weightValue = document.getElementById(prefix + '-bonus-weight').value.trim();
+            const scoreValue = document.getElementById(prefix + '-bonus-score').value.trim();
+            if (!weightValue && !scoreValue) return { weight: 0, score: 0, amount: 0, present: false };
+            const weight = Number(weightValue);
+            const score = Number(scoreValue);
+            if (!weightValue || !scoreValue || !Number.isFinite(weight) || weight < 0 ||
+                !isValidScoreInput(scoreValue)) {
+                alert('Điểm cộng: vui lòng nhập cả % và điểm hợp lệ (0–10), hoặc để trống cả hai.');
+                return null;
+            }
+            return { weight, score, amount: weight * score / 100, present: true };
+        }
 
         function generateScoreInputs(num) {
             scoreContainer.innerHTML = '';
@@ -2481,6 +2498,9 @@ if (window.location.pathname.includes('grades.html')) {
                 alert(`Tổng trọng số hiện tại là ${totalWeight}%. Vui lòng điều chỉnh lại để tổng bằng 100%!`);
                 return;
             }
+            const bonus = readBonusScore('m');
+            if (!bonus) return;
+            finalScore = Math.min(10, finalScore + bonus.amount);
 
             let courseName = courseDictionary[codeVal] || "Học phần tự chọn";
             let credits = courseCredits[codeVal] !== undefined ? courseCredits[codeVal] : 4;
@@ -2496,7 +2516,8 @@ if (window.location.pathname.includes('grades.html')) {
                 status: roundFinalScore(finalScore) >= 5.0 ? "Đ" : "CĐ",
                 note: selectedType,
                 colsCount: wInputs.length,
-                scoresList: scoresList
+                scoresList: scoresList,
+                bonusScore: bonus.present ? { weight: bonus.weight, score: bonus.score } : null
             };
 
             if (!currentUser.stats.gradesList) {
@@ -2593,6 +2614,16 @@ if (window.location.pathname.includes('grades.html')) {
                 `;
             });
 
+            const bonus = course.bonusScore;
+            if (bonus && Number.isFinite(Number(bonus.weight)) && Number.isFinite(Number(bonus.score))) {
+                rowsHtml += `
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:10px;text-align:center;">Điểm cộng</td>
+                        <td style="padding:10px;text-align:center;font-weight:500;">${bonus.weight}%</td>
+                        <td style="padding:10px;text-align:center;font-weight:700;color:#1a498b;">${Number(bonus.score).toFixed(1)}</td>
+                    </tr>`;
+            }
+
             const score10 = convertGrade(course.score, '10');
             const score4 = convertGrade(course.score, '4');
             const scoreLetter = convertGrade(course.score, 'letter');
@@ -2666,6 +2697,8 @@ if (window.location.pathname.includes('grades.html')) {
             document.getElementById('e-cols').value = count;
 
             generateEditScoreInputs(count, existingScores);
+            document.getElementById('e-bonus-weight').value = course.bonusScore?.weight ?? '';
+            document.getElementById('e-bonus-score').value = course.bonusScore?.score ?? '';
             editModal.style.display = 'flex';
         };
 
@@ -2768,6 +2801,9 @@ if (window.location.pathname.includes('grades.html')) {
                 alert('Tổng phần trăm trọng số phải đúng bằng 100%!');
                 return;
             }
+            const bonus = readBonusScore('e');
+            if (!bonus) return;
+            finalScore = Math.min(10, finalScore + bonus.amount);
 
             const activeSem = document.querySelector('#e-sem-group .pill-btn.active').dataset.val;
             const activeType = document.querySelector('#e-type-group .pill-btn.active').dataset.val;
@@ -2782,6 +2818,8 @@ if (window.location.pathname.includes('grades.html')) {
             currentUser.stats.gradesList[editingIndex].status = roundFinalScore(finalScore) >= 5.0 ? "Đ" : "CĐ";
             currentUser.stats.gradesList[editingIndex].colsCount = wInputs.length;
             currentUser.stats.gradesList[editingIndex].scoresList = updatedScoresList;
+            currentUser.stats.gradesList[editingIndex].bonusScore =
+                bonus.present ? { weight: bonus.weight, score: bonus.score } : null;
             currentUser.stats.gradesList = mergeGradesReplacingOld([], currentUser.stats.gradesList);
 
             saveCurrentUser();
