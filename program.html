@@ -56,6 +56,17 @@
             <!-- CTĐT: Quyết định 2818/QĐ-KHTN ngày 19/09/2025; K2025, KHMT, 138 TC chuyên môn. -->
             <div class="program-main">
                 
+                <section class="program-card" aria-label="Kiểm tra điều kiện học phần">
+                    <h2 class="card-section-title">Kiểm tra điều kiện đăng ký học phần</h2>
+                    <p>Nhập mã hoặc tên học phần để kiểm tra môn tiên quyết và môn đề nghị học trước dựa trên bảng điểm của bạn.</p>
+                    <div class="course-check-controls">
+                        <input id="check-course-code" class="modal-input" list="check-course-list" placeholder="Nhập mã học phần, ví dụ CSC13002" aria-label="Mã học phần">
+                        <datalist id="check-course-list"></datalist>
+                        <select id="check-course-year" class="modal-input" aria-label="Năm học"><option value="25 - 26">2025–2026</option><option value="26 - 27">2026–2027</option><option value="27 - 28">2027–2028</option><option value="28 - 29">2028–2029</option></select>
+                        <select id="check-course-sem" class="modal-input" aria-label="Học kỳ"><option value="1">HK1</option><option value="2">HK2</option><option value="3">HK hè</option></select>
+                    </div>
+                    <div id="check-course-result" class="course-requirements-check" role="status" aria-live="polite" hidden></div>
+                </section>
                 <!-- Section 1: ĐẠI CƯƠNG -->
                 <div class="program-card">
                     <div class="card-header-row">
@@ -300,5 +311,6 @@
 
     <!-- External Script -->
     <script src="script.js"></script>
+    <script src="course-requirements.js"></script>
 </body>
 </html>
