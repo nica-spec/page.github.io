@@ -2,15 +2,17 @@
  * "Học trước" trong JSON là đề nghị, KHÔNG phải tiên quyết bắt buộc.
  */
 (() => {
-  const input = document.getElementById('m-code');
-  const panel = document.getElementById('m-course-requirements');
+  const input = document.getElementById('m-code') || document.getElementById('check-course-code');
+  const panel = document.getElementById('m-course-requirements') || document.getElementById('check-course-result');
   if (!input || !panel) return;
 
   const normalize = value => String(value || '').trim().toUpperCase();
   const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, char =>
     ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   let requirements = null;
+  let prerequisiteRules = null;
   let loadError = false;
+  let mandatoryLoadError = false;
 
   function userGrades() {
     try {
@@ -33,8 +35,8 @@
   }
   function targetPeriod() {
     return period({
-      year: document.getElementById('m-year')?.value || '25 - 26',
-      sem: document.querySelector('#m-sem-group .pill-btn.active')?.dataset.val || '1'
+      year: document.getElementById('m-year')?.value || document.getElementById('check-course-year')?.value || '25 - 26',
+      sem: document.querySelector('#m-sem-group .pill-btn.active')?.dataset.val || document.getElementById('check-course-sem')?.value || '1'
     });
   }
   function statusFor(code) {
@@ -68,10 +70,14 @@
       panel.textContent = 'Không tải được danh sách học phần học trước. Hãy kiểm tra kết nối và tải lại trang.';
       return;
     }
-    if (!requirements) {
-      panel.textContent = 'Đang tải danh sách học phần học trước…';
+    if (!requirements || !prerequisiteRules) {
+      panel.textContent = 'Đang tải dữ liệu điều kiện học phần…';
       return;
     }
+    const mandatory = prerequisiteRules.courses?.[code];
+    const mandatoryKnown = Array.isArray(mandatory);
+    const mandatoryDetails = mandatoryKnown ? mandatory.map(id => ({id, ...statusFor(id)})) : [];
+    const mandatoryOk = mandatoryKnown && mandatoryDetails.every(item => item.ok);
     const prior = requirements.courses?.[code] || [];
     const notes = requirements.notes?.[code] || {};
     const dict = typeof courseDictionary !== 'undefined' ? courseDictionary : {};
@@ -79,9 +85,16 @@
     const satisfied = details.filter(item => item.ok).length;
     panel.innerHTML = `
       <div style="font-weight:700;color:#174575;margin-bottom:8px">Kiểm tra điều kiện học phần: ${escapeHTML(code)}</div>
-      <div style="font-size:13px;color:#475569;margin-bottom:8px">
-        Học phần tiên quyết bắt buộc: <strong>chưa có dữ liệu xác nhận</strong>.
-        Không suy ra tiên quyết từ danh sách đề nghị học trước.
+      <div style="font-size:13px;color:#475569;margin-bottom:9px">
+        <strong>Tiên quyết bắt buộc:</strong>
+        ${mandatoryLoadError ? 'Không tải được danh sách tiên quyết.' : mandatoryKnown
+          ? (mandatoryOk ? '<span style="color:#15803d">Đã đáp ứng tất cả môn tiên quyết được khai báo.</span>'
+             : '<span style="color:#b91c1c">CHƯA ĐỦ điều kiện tiên quyết theo dữ liệu đã khai báo.</span>')
+          : '<span style="color:#b45309">Chưa có dữ liệu tiên quyết được xác nhận — chưa thể kết luận đủ điều kiện đăng ký.</span>'}
+        ${mandatoryDetails.length ? `<ul style="padding-left:18px;margin:6px 0">
+          ${mandatoryDetails.map(item => `<li><strong>${escapeHTML(item.id)}</strong> — ${escapeHTML(dict[item.id] || 'Chưa có tên môn')}
+            <div style="color:${item.color}">${escapeHTML(item.label)}</div></li>`).join('')}
+          </ul>` : (mandatoryKnown && !mandatoryDetails.length ? '<div>Không có môn tiên quyết bắt buộc được khai báo.</div>' : '')}
       </div>
       ${prior.length ? `
         <div style="font-weight:600;margin-bottom:6px">Học phần đề nghị học trước (${satisfied}/${details.length} đã đạt trước học kỳ đang chọn):</div>
@@ -97,6 +110,8 @@
       </small>`;
   }
   input.addEventListener('input', render);
+  document.getElementById('check-course-year')?.addEventListener('change', render);
+  document.getElementById('check-course-sem')?.addEventListener('change', render);
   input.addEventListener('change', render);
   document.getElementById('m-year')?.addEventListener('change', render);
   document.querySelectorAll('#m-sem-group .pill-btn').forEach(btn => btn.addEventListener('click', () => setTimeout(render, 0)));
@@ -105,6 +120,10 @@
   // Duy trì hiển thị khi tên học phần được cập nhật bằng hàm chọn gợi ý.
   const preview = document.getElementById('m-name-preview');
   if (preview) new MutationObserver(render).observe(preview, {childList:true, characterData:true, subtree:true});
+  fetch('tien_quyet_K2025.json', {cache:'no-store'})
+    .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
+    .then(data => { prerequisiteRules = data; render(); })
+    .catch(error => { console.error('Lỗi tải tiên quyết:', error); mandatoryLoadError = true; prerequisiteRules = {courses:{}}; render(); });
   fetch('hoc_truoc_K2025.json', {cache:'no-store'})
     .then(response => { if (!response.ok) throw new Error('HTTP ' + response.status); return response.json(); })
     .then(data => { requirements = data; render(); })
