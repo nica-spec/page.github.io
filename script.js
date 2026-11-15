@@ -2362,6 +2362,8 @@ if (window.location.pathname.includes('grades.html')) {
 
         document.getElementById('btn-add-manual').addEventListener('click', () => {
             modal.style.display = 'flex';
+            const status = document.getElementById('m-submit-status');
+            if (status) { status.textContent = ''; status.style.display = 'none'; }
             // Mỗi lần mở biểu mẫu, mặc định HK1; người dùng có thể chọn HK3 – học kỳ hè.
             selectedSem = '1';
             document.querySelectorAll('#m-sem-group .pill-btn').forEach(btn => {
@@ -2449,7 +2451,16 @@ if (window.location.pathname.includes('grades.html')) {
             }
         });
 
+        const manualStatus = document.getElementById('m-submit-status');
+        function showManualStatus(message) {
+            if (!manualStatus) { alert(message); return; }
+            manualStatus.textContent = message;
+            manualStatus.style.display = 'block';
+            manualStatus.setAttribute('role', 'alert');
+        }
         document.getElementById('btn-submit-course').addEventListener('click', () => {
+          try {
+            if (manualStatus) { manualStatus.textContent = ''; manualStatus.style.display = 'none'; }
             const yearVal = document.getElementById('m-year').value || '25 - 26';
             const codeVal = document.getElementById('m-code').value.trim().toUpperCase() || 'PHY00001';
 
@@ -2466,11 +2477,11 @@ if (window.location.pathname.includes('grades.html')) {
                 return;
             }
 
-            const wInputs = document.querySelectorAll('#m-score-inputs .w-input, #m-score-inputs .score-col input:nth-child(2)');
-            const sInputs = document.querySelectorAll('#m-score-inputs .s-input, #m-score-inputs .score-col input:nth-child(4)');
+            const wInputs = document.querySelectorAll('#m-score-inputs .w-input');
+            const sInputs = document.querySelectorAll('#m-score-inputs .s-input');
 
-            if (wInputs.length === 0) {
-                alert('Vui lòng nhập số cột điểm!');
+            if (wInputs.length === 0 || wInputs.length !== sInputs.length) {
+                showManualStatus('Hãy nhập số cột điểm (1–5) để hiện các ô trọng số và điểm.');
                 return;
             }
 
@@ -2483,7 +2494,7 @@ if (window.location.pathname.includes('grades.html')) {
                 const sVal = sInputs[i].value.trim();
 
                 if (wVal === '' || sVal === '') {
-                    alert(`Vui lòng nhập đầy đủ trọng số và điểm cho cột số ${i + 1}!`);
+                    showManualStatus(`Vui lòng nhập đầy đủ trọng số và điểm cho cột số ${i + 1}!`);
                     return;
                 }
 
@@ -2491,7 +2502,7 @@ if (window.location.pathname.includes('grades.html')) {
                 const s = parseFloat(sVal);
 
                 if (!Number.isFinite(w) || !isValidScoreInput(sVal) || w < 1 || w > 100) {
-                    alert(`Dữ liệu nhập ở cột ${i + 1} không hợp lệ!`);
+                    showManualStatus(`Dữ liệu nhập ở cột ${i + 1} không hợp lệ: trọng số 1–100%, điểm 0–10.`);
                     return;
                 }
 
@@ -2500,12 +2511,15 @@ if (window.location.pathname.includes('grades.html')) {
                 scoresList.push({ weight: w, score: s });
             }
 
-            if (Math.round(totalWeight) !== 100) {
-                alert(`Tổng trọng số hiện tại là ${totalWeight}%. Vui lòng điều chỉnh lại để tổng bằng 100%!`);
+            if (Math.abs(totalWeight - 100) > 0.000001) {
+                showManualStatus(`Tổng trọng số các cột điểm thường là ${totalWeight}%. Phải bằng 100% (không tính Điểm cộng).`);
                 return;
             }
             const bonus = readBonusScore('m');
-            if (!bonus) return;
+            if (!bonus) {
+                showManualStatus('Điểm cộng không hợp lệ: nhập cả % và điểm (0–10), hoặc để trống cả hai.');
+                return;
+            }
             finalScore = Math.min(10, finalScore + bonus.amount);
 
             let courseName = courseDictionary[codeVal] || "Học phần tự chọn";
@@ -2534,6 +2548,10 @@ if (window.location.pathname.includes('grades.html')) {
             saveCurrentUser();
             modal.style.display = 'none';
             renderGrades();
+          } catch (error) {
+            console.error('Lỗi thêm học phần thủ công:', error);
+            showManualStatus('Không thể thêm học phần: ' + (error?.message || 'Lỗi không xác định') + '. Xem F12 → Console để biết chi tiết.');
+          }
         });
 
         const btnEditMode = document.getElementById('btn-edit');
@@ -2847,12 +2865,12 @@ if (window.location.pathname.includes('grades.html')) {
         });
 
         function saveCurrentUser() {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            let uIndex = users.findIndex(u => u.studentId === currentUser.studentId);
-            if (uIndex > -1) {
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const uIndex = Array.isArray(users) ? users.findIndex(u => u.studentId === currentUser.studentId) : -1;
+            if (uIndex >= 0) {
                 users[uIndex] = currentUser;
                 localStorage.setItem('users', JSON.stringify(users));
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
             }
         }
     }
