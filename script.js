@@ -1,3 +1,997 @@
+// CTĐT ngành Khoa học máy tính, khóa tuyển 2025; căn cứ Quyết định 2818/QĐ-KHTN (19/09/2025).
+// Các danh mục tự chọn là PHƯƠNG ÁN lựa chọn, không có nghĩa sinh viên phải học tất cả.
+const CTDT_KHMT_2025 = {
+  "politics": [
+    {
+      "code": "BAA00101",
+      "name": "Triết học Mác - Lênin",
+      "tc": 3,
+      "type": "BB",
+      "lt": 45,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00102",
+      "name": "Kinh tế chính trị Mác - Lênin",
+      "tc": 2,
+      "type": "BB",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00103",
+      "name": "Chủ nghĩa xã hội khoa học",
+      "tc": 2,
+      "type": "BB",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00104",
+      "name": "Lịch sử Đảng Cộng sản Việt Nam",
+      "tc": 2,
+      "type": "BB",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00003",
+      "name": "Tư tưởng Hồ Chí Minh",
+      "tc": 2,
+      "type": "BB",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00004",
+      "name": "Pháp luật đại cương",
+      "tc": 3,
+      "type": "BB",
+      "lt": 45,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    }
+  ],
+  "skills": [
+    {
+      "code": "BAA00005",
+      "name": "Kinh tế đại cương",
+      "tc": 2,
+      "type": "TC",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00006",
+      "name": "Tâm lý đại cương",
+      "tc": 2,
+      "type": "TC",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00007",
+      "name": "Phương pháp luận sáng tạo",
+      "tc": 2,
+      "type": "TC",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    }
+  ],
+  "math": [
+    {
+      "code": "MTH00021",
+      "name": "Vi tích phân 1",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "MTH00022",
+      "name": "Vi tích phân 2",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "MTH00035",
+      "name": "Đại số tuyến tính",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "MTH00044",
+      "name": "Xác suất thống kê",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "MTH00045",
+      "name": "Toán rời rạc",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "MTH00050",
+      "name": "Toán học tổ hợp",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "MTH00051",
+      "name": "Toán ứng dụng và thống kê",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "math_choice",
+      "project": 0
+    },
+    {
+      "code": "MTH00052",
+      "name": "Phương pháp tính",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "math_choice",
+      "project": 0
+    },
+    {
+      "code": "MTH00053",
+      "name": "Lý thuyết số",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "math_choice",
+      "project": 0
+    },
+    {
+      "code": "CHE00001",
+      "name": "Hóa đại cương 1",
+      "tc": 3,
+      "type": "TC",
+      "lt": 30,
+      "th": 0,
+      "bt": 30,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "CHE00002",
+      "name": "Hóa đại cương 2",
+      "tc": 3,
+      "type": "TC",
+      "lt": 30,
+      "th": 0,
+      "bt": 30,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "CHE00081",
+      "name": "Thực hành Hóa đại cương 1",
+      "tc": 2,
+      "type": "TC",
+      "lt": 0,
+      "th": 60,
+      "bt": 0,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "CHE00082",
+      "name": "Thực hành Hóa đại cương 2",
+      "tc": 2,
+      "type": "TC",
+      "lt": 0,
+      "th": 60,
+      "bt": 0,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "BIO00001",
+      "name": "Sinh đại cương 1",
+      "tc": 3,
+      "type": "TC",
+      "lt": 45,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "BIO00002",
+      "name": "Sinh đại cương 2",
+      "tc": 3,
+      "type": "TC",
+      "lt": 45,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "BIO00081",
+      "name": "Thực tập Sinh đại cương 1",
+      "tc": 1,
+      "type": "TC",
+      "lt": 0,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "BIO00082",
+      "name": "Thực tập Sinh đại cương 2",
+      "tc": 1,
+      "type": "TC",
+      "lt": 0,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "PHY00001",
+      "name": "Vật lý đại cương 1 (Cơ - Nhiệt)",
+      "tc": 3,
+      "type": "TC",
+      "lt": 45,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "PHY00002",
+      "name": "Vật lý đại cương 2 (Điện từ - Quang)",
+      "tc": 3,
+      "type": "TC",
+      "lt": 45,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "PHY00081",
+      "name": "Thực hành Vật lý đại cương",
+      "tc": 2,
+      "type": "TC",
+      "lt": 0,
+      "th": 60,
+      "bt": 0,
+      "req": "",
+      "section": "science_choice",
+      "project": 0
+    },
+    {
+      "code": "GEO00002",
+      "name": "Khoa học Trái đất",
+      "tc": 2,
+      "type": "TC",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "environment_choice",
+      "project": 0
+    },
+    {
+      "code": "ENV00001",
+      "name": "Môi trường đại cương",
+      "tc": 2,
+      "type": "TC",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "environment_choice",
+      "project": 0
+    },
+    {
+      "code": "ENV00003",
+      "name": "Con người và môi trường",
+      "tc": 2,
+      "type": "TC",
+      "lt": 30,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "environment_choice",
+      "project": 0
+    }
+  ],
+  "it": [
+    {
+      "code": "CSC00004",
+      "name": "Nhập môn công nghệ thông tin",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    }
+  ],
+  "language": [
+    {
+      "code": "ADD00031",
+      "name": "Anh văn 1",
+      "tc": 3,
+      "type": "",
+      "lt": 30,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "ADD00032",
+      "name": "Anh văn 2",
+      "tc": 3,
+      "type": "",
+      "lt": 30,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "ADD00033",
+      "name": "Anh văn 3",
+      "tc": 3,
+      "type": "",
+      "lt": 30,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "ADD00034",
+      "name": "Anh văn 4",
+      "tc": 3,
+      "type": "",
+      "lt": 30,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00021",
+      "name": "Thể dục 1",
+      "tc": 2,
+      "type": "BB",
+      "lt": 15,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00022",
+      "name": "Thể dục 2",
+      "tc": 2,
+      "type": "BB",
+      "lt": 15,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "BAA00030",
+      "name": "Giáo dục quốc phòng - An ninh",
+      "tc": 4,
+      "type": "BB",
+      "lt": 0,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    }
+  ],
+  "foundation": [
+    {
+      "code": "CSC10003",
+      "name": "Phương pháp lập trình hướng đối tượng",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "CSC10004",
+      "name": "Cấu trúc dữ liệu và giải thuật",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "CSC10006",
+      "name": "Cơ sở dữ liệu",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "CSC10007",
+      "name": "Hệ điều hành",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "CSC10008",
+      "name": "Mạng máy tính",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "CSC10009",
+      "name": "Hệ thống máy tính",
+      "tc": 2,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "CSC10012",
+      "name": "Cơ sở lập trình",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "CSC10014",
+      "name": "Tư duy tính toán",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "CSC13002",
+      "name": "Nhập môn công nghệ phần mềm",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    },
+    {
+      "code": "CSC14003",
+      "name": "Cơ sở trí tuệ nhân tạo",
+      "tc": 4,
+      "type": "BB",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "",
+      "project": 0
+    }
+  ],
+  "major": [
+    {
+      "code": "CSC14001",
+      "name": "Automata và ngôn ngữ hình thức",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_core",
+      "project": 0
+    },
+    {
+      "code": "CSC14002",
+      "name": "Các hệ cơ sở tri thức",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_core",
+      "project": 0
+    },
+    {
+      "code": "CSC14004",
+      "name": "Khai thác dữ liệu và ứng dụng",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_core",
+      "project": 0
+    },
+    {
+      "code": "CSC14005",
+      "name": "Nhập môn học máy",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_core",
+      "project": 0
+    },
+    {
+      "code": "CSC14006",
+      "name": "Nhận dạng",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_core",
+      "project": 0
+    },
+    {
+      "code": "CSC14101",
+      "name": "Ẩn dữ liệu và chia sẻ thông tin",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_core",
+      "project": 0
+    },
+    {
+      "code": "CSC14111",
+      "name": "Nhập môn thiết kế và phân tích giải thuật",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_core",
+      "project": 0
+    },
+    {
+      "code": "CSC14118",
+      "name": "Nhập môn dữ liệu lớn",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_core",
+      "project": 0
+    },
+    {
+      "code": "CSC14120",
+      "name": "Lập trình song song",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_core",
+      "project": 0
+    },
+    {
+      "code": "CSC10102",
+      "name": "Kiến tập nghề nghiệp",
+      "tc": 2,
+      "type": "TC",
+      "lt": 15,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC10103",
+      "name": "Khởi nghiệp",
+      "tc": 3,
+      "type": "TC",
+      "lt": 30,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC10104",
+      "name": "Quy hoạch tuyến tính",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC10108",
+      "name": "Trực quan hóa dữ liệu",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC14008",
+      "name": "Phương pháp nghiên cứu khoa học",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC14105",
+      "name": "Khoa học và web",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC14112",
+      "name": "Sinh trắc học",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC14113",
+      "name": "Trình biên dịch",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC14117",
+      "name": "Nhập môn lập trình kết nối vạn vật",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC14119",
+      "name": "Nhập môn khoa học dữ liệu",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC16005",
+      "name": "Xử lý ảnh số và video số",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC17001",
+      "name": "Phân tích dữ liệu thông minh",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC18002",
+      "name": "Nhập môn trí tuệ nhân tạo tạo sinh",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC18106",
+      "name": "Mô hình ngôn ngữ lớn",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    },
+    {
+      "code": "CSC18107",
+      "name": "Các chủ đề chọn lọc trong trí tuệ nhân tạo",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "major_elective",
+      "project": 0
+    }
+  ],
+  "graduation": [
+    {
+      "code": "CSC10251",
+      "name": "Khóa luận tốt nghiệp",
+      "tc": 10,
+      "type": "TC",
+      "lt": 0,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "grad_full",
+      "project": 300
+    },
+    {
+      "code": "CSC10252",
+      "name": "Thực tập tốt nghiệp",
+      "tc": 10,
+      "type": "TC",
+      "lt": 0,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "grad_full",
+      "project": 300
+    },
+    {
+      "code": "CSC10204",
+      "name": "Thực tập dự án tốt nghiệp",
+      "tc": 6,
+      "type": "TC",
+      "lt": 0,
+      "th": 0,
+      "bt": 0,
+      "req": "",
+      "section": "grad_project",
+      "project": 180
+    },
+    {
+      "code": "CSC14114",
+      "name": "Ứng dụng dữ liệu lớn",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "grad_seminar",
+      "project": 0
+    },
+    {
+      "code": "CSC14115",
+      "name": "Khoa học dữ liệu ứng dụng",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "grad_seminar",
+      "project": 0
+    },
+    {
+      "code": "CSC14116",
+      "name": "Lập trình song song ứng dụng",
+      "tc": 4,
+      "type": "TC",
+      "lt": 45,
+      "th": 30,
+      "bt": 0,
+      "req": "",
+      "section": "grad_seminar",
+      "project": 0
+    }
+  ]
+};
+const CTDT_REQUIREMENTS = Object.freeze({general:56,politics:14,skills:2,math:36,it:4,foundation:38,major:34,graduation:10,total:138});
+const CTDT_COURSE_INDEX = Object.fromEntries(Object.entries(CTDT_KHMT_2025).flatMap(([group,items])=>items.map(c=>[c.code,{...c,group}])));
+function getCurriculumCredits(grades,group){
+ const passed = getLatestCourses(grades).filter(g=>isPassedCourse(g));
+ const byCode = new Map(passed.map(g=>[String(g.code).trim().toUpperCase(),g]));
+ const source = CTDT_KHMT_2025[group]||[];
+ const sum = list=>list.reduce((a,c)=>a+(byCode.has(c.code)?c.tc:0),0);
+ if(group==='skills') return Math.min(2,sum(source));
+ if(group==='math') return sum(source.filter(c=>!c.section))+Math.min(4,sum(source.filter(c=>c.section==='math_choice')))+Math.min(6,sum(source.filter(c=>c.section==='science_choice')))+Math.min(2,sum(source.filter(c=>c.section==='environment_choice')));
+ if(group==='major') return Math.min(34,Math.min(16,sum(source.filter(c=>c.section==='major_core')))+Math.min(18,sum(source.filter(c=>c.section==='major_elective'))+Math.max(0,sum(source.filter(c=>c.section==='major_core'))-16)));
+ if(group==='graduation') return Math.min(10, Math.max(...source.filter(c=>c.section==='grad_full').map(c=>byCode.has(c.code)?10:0),0, Math.min(6,sum(source.filter(c=>c.section==='grad_project')))+Math.min(4,sum(source.filter(c=>c.section==='grad_seminar')))));
+ return Math.min(CTDT_REQUIREMENTS[group]||Infinity,sum(source));
+}
+
 // Danh sách số tín chỉ chuẩn theo mã học phần
 const courseCredits = {
     // Toán - KHTN - Môi trường
@@ -61,6 +1055,12 @@ const courseDictionary = {
     "CSC14101": "Ẩn dữ liệu và chia sẻ thông tin",
     "CSC11120": "Bảo mật web và thiết bị di động"
 };
+
+// Ưu tiên thông tin được đối chiếu từ CTĐT K2025, không thay đổi dữ liệu điểm của sinh viên.
+Object.entries(CTDT_COURSE_INDEX).forEach(([code,info])=>{courseCredits[code]=info.tc;courseDictionary[code]=info.name;});
+// Giữ mã cũ để bảng điểm đã nhập không tự biến mất; mã chính thức mới được dùng ở danh mục.
+const CTDT_LEGACY_CODES = {'BAA00105':'BAA00003','BAA00011':'BAA00004','CSC14004_AI':'CSC14003'};
+function canonicalCurriculumCode(code){return CTDT_LEGACY_CODES[String(code||'').trim().toUpperCase()]||String(code||'').trim().toUpperCase();}
 
 // Hàm tiện ích lấy số tín chỉ chuẩn của một môn học
 function getStandardCredit(code, fallbackTc) {
@@ -185,15 +1185,12 @@ function getCourseMetrics(grades) {
 // Nhóm chương trình đào tạo dùng để phân rã biểu đồ tín chỉ trên Dashboard.
 // Không gán môn chưa nhận diện vào nhóm khác một cách tùy tiện.
 function getDashboardCourseGroup(g) {
-    const code = String(g.code || '').trim().toUpperCase();
-    const generalCodes = new Set([
-        'BAA00101','BAA00102','BAA00103','BAA00104','BAA00105','BAA00011',
-        'BAA00005','BAA00006','BAA00007','MTH00021','MTH00022',
-        'MTH00035','MTH00044','MTH00045','MTH00050','ENV00001','ENV00003','CSC00004'
-    ]);
-    if (generalCodes.has(code)) return 'general';
-    if (code === 'CSC14004' || code.startsWith('CSC10')) return 'foundation';
-    if (code.startsWith('CSC14') || code.startsWith('CSC11')) return 'major';
+    const code = canonicalCurriculumCode(g.code);
+    const group = CTDT_COURSE_INDEX[code]?.group;
+    if (['politics','skills','math','it'].includes(group)) return 'general';
+    if (group==='foundation') return 'foundation';
+    if (group==='major') return 'major';
+    // Học phần tốt nghiệp không bị gán nhầm vào chuyên ngành.
     return 'other';
 }
 function getDashboardCreditBreakdown(grades, totalCredits) {
@@ -556,14 +1553,7 @@ if (window.location.pathname.includes('program.html')) {
         document.getElementById('fill-remaining-widget').style.width = `${remainingPercent}%`;
         document.getElementById('percent-remaining-widget').textContent = `${remainingPercent}%`;
 
-        const moduleMapping = {
-            "BAA00101": 1, "BAA00102": 1, "BAA00103": 1, "BAA00104": 1, "BAA00105": 1, "BAA00011": 1,
-            "BAA00005": 2, "BAA00006": 2, "BAA00007": 2,
-            "MTH00021": 3, "MTH00022": 3, "MTH00035": 3, "MTH00044": 3, "MTH00045": 3, "MTH00050": 3, "ENV00001": 3, "ENV00003": 3,
-            "CSC00004": 4,
-            "ADD00031": 5, "ADD00032": 5, "ADD00033": 5, "ADD00034": 5, "BAA00021": 5, "BAA00022": 5, "BAA00030": 5,
-            "CSC14004": 6
-        };
+        const moduleMapping = Object.fromEntries(Object.entries(CTDT_COURSE_INDEX).map(([code, item])=>[code, ({politics:1,skills:2,math:3,it:4,language:5,foundation:6,major:7})[item.group]]).filter(([,n])=>n));
 
         let modCredits = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
         const modTargets = { 1: 14, 2: 2, 3: 36, 4: 4, 5: 20, 6: 38, 7: 34 };
@@ -577,8 +1567,7 @@ if (window.location.pathname.includes('program.html')) {
 
                     let modNum = moduleMapping[code];
                     if (!modNum) {
-                        if (code.startsWith("CSC10")) modNum = 6;
-                        else if (code.startsWith("CSC14") || code.startsWith("CSC11")) modNum = 7;
+                        if (CTDT_COURSE_INDEX[code]) modNum = moduleMapping[code];
                     }
                     
                     if (modNum) {
@@ -588,6 +1577,13 @@ if (window.location.pathname.includes('program.html')) {
             }
         });
 
+        for (const [id,group] of [[1,'politics'],[2,'skills'],[3,'math'],[4,'it'],[6,'foundation'],[7,'major']]) modCredits[id]=getCurriculumCredits(gradesList,group);
+        modCredits[5] = getCurriculumCredits(gradesList,'language');
+        const graduationDone = getCurriculumCredits(gradesList,'graduation');
+        const graduationPercent = Math.min(100, Math.round(graduationDone/10*100));
+        const gfill=document.getElementById('fill-mod-8'),gtext=document.getElementById('percent-mod-8');
+        if(gfill) gfill.style.width=graduationPercent+'%';
+        if(gtext) gtext.textContent=graduationPercent+'%';
         for (let i = 1; i <= 7; i++) {
             const current = modCredits[i];
             const target = modTargets[i];
@@ -616,31 +1612,23 @@ if (window.location.pathname.includes('module-math.html')) {
         document.getElementById('display-fullname').textContent = currentUser.fullname;
         document.getElementById('display-mssv').textContent = `MSSV: ${currentUser.studentId}`;
 
-        const courseData = [
-            { stt: "1", code: "MTH00021", name: "Vi tích phân 1", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "2", code: "MTH00022", name: "Vi tích phân 2", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "TQ:<br>Vi tích phân 1" },
-            { stt: "3", code: "MTH00035", name: "Đại số tuyến tính", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "4", code: "MTH00044", name: "Xác suất thống kê", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "5", code: "MTH00045", name: "Toán rời rạc", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "6", code: "MTH00050", name: "Toán học tổ hợp", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "7", isHeader: true, name: "Chọn 1 học phần (4 tín chỉ) trong các học phần sau:" },
-            { stt: "", code: "ENV00001", name: "Môi trường đại cương", tc: 2, type: "TC", lt: 30, th: 0, bt: 0, req: "" },
-            { stt: "", code: "ENV00003", name: "Con người và môi trường", tc: 2, type: "TC", lt: 30, th: 0, bt: 0, req: "" }
-        ];
+        const courseData = CTDT_KHMT_2025.math.map((c,i)=>({...c,stt:String(i+1),name:({math_choice:'[Chọn 4 TC] ',science_choice:'[Chọn 6 TC] ',environment_choice:'[Chọn 2 TC] '})[c.section] ? ({math_choice:'[Chọn 4 TC] ',science_choice:'[Chọn 6 TC] ',environment_choice:'[Chọn 2 TC] '})[c.section]+c.name : c.name}));
 
         const grades = currentUser.stats.mathGrades || {};
+        const gradesList = getLatestCourses(currentUser.stats?.gradesList || []);
         const tbody = document.getElementById('course-table-body');
         
         let passedCreds = 0, passedCourses = 0, failedCourses = 0;
         const totalCreds = 36; 
-        const totalCourses = 10;
+        const totalCourses = courseData.length;
 
         courseData.forEach(c => {
             const tr = document.createElement('tr');
             if (c.isHeader) {
                 tr.innerHTML = `<td>${c.stt}</td><td colspan="9" class="group-header">${c.name}</td>`;
             } else {
-                const status = grades[c.code] || "Chưa học";
+                const found = gradesList.find(g=>String(g.code||'').toUpperCase()===c.code);
+                const status = found ? (isPassedCourse(found)?'Đạt':isFailedCourse(found)?'Chưa đạt':'Đang học') : (grades[c.code] || 'Chưa học');
                 let statusClass = 'st-chua-hoc';
                 let displayStatus = status.toUpperCase();
 
@@ -673,6 +1661,7 @@ if (window.location.pathname.includes('module-math.html')) {
             tbody.appendChild(tr);
         });
 
+        passedCreds = getCurriculumCredits(gradesList, "math");
         const percent = Math.round((passedCreds / totalCreds) * 100) || 0;
         document.getElementById('math-progress-fill').style.width = percent + '%';
         document.getElementById('math-progress-text').textContent = percent + '%';
@@ -2302,14 +3291,7 @@ if (window.location.pathname.includes('module-politics.html')) {
         document.getElementById('display-fullname').textContent = currentUser.fullname;
         document.getElementById('display-mssv').textContent = `MSSV: ${currentUser.studentId}`;
 
-        const courseData = [
-            { stt: "1", code: "BAA00101", name: "Triết học Mác - Lênin", tc: 3, type: "BB", lt: 45, th: 0, bt: 0, req: "" },
-            { stt: "2", code: "BAA00102", name: "Kinh tế chính trị Mác - Lênin", tc: 2, type: "BB", lt: 30, th: 0, bt: 0, req: "" },
-            { stt: "3", code: "BAA00103", name: "Chủ nghĩa xã hội khoa học", tc: 2, type: "BB", lt: 30, th: 0, bt: 0, req: "" },
-            { stt: "4", code: "BAA00104", name: "Lịch sử Đảng Cộng sản Việt Nam", tc: 2, type: "BB", lt: 30, th: 0, bt: 0, req: "" },
-            { stt: "5", code: "BAA00105", name: "Tư tưởng Hồ Chí Minh", tc: 2, type: "BB", lt: 30, th: 0, bt: 0, req: "" },
-            { stt: "6", code: "BAA00011", name: "Pháp luật đại cương", tc: 3, type: "BB", lt: 45, th: 0, bt: 0, req: "" }
-        ];
+        const courseData = CTDT_KHMT_2025.politics.map((c,i)=>({...c,stt:String(i+1)}));
 
         const gradesList = getLatestCourses((currentUser.stats && currentUser.stats.gradesList) ? currentUser.stats.gradesList : []);
         const tbody = document.getElementById('course-table-body-politics');
@@ -2398,12 +3380,7 @@ if (window.location.pathname.includes('module-skills.html')) {
         document.getElementById('display-fullname').textContent = currentUser.fullname;
         document.getElementById('display-mssv').textContent = `MSSV: ${currentUser.studentId}`;
 
-        const courseData = [
-            { stt: "1", isHeader: true, name: "Chọn 1 học phần (2 tín chỉ) trong các học phần sau:" },
-            { stt: "", code: "BAA00005", name: "Kinh tế đại cương", tc: 2, type: "TC", lt: 30, th: 0, bt: 0, req: "" },
-            { stt: "", code: "BAA00006", name: "Tâm lý đại cương", tc: 2, type: "TC", lt: 30, th: 0, bt: 0, req: "" },
-            { stt: "", code: "BAA00007", name: "Phương pháp luận sáng tạo", tc: 2, type: "TC", lt: 30, th: 0, bt: 0, req: "" }
-        ];
+        const courseData = CTDT_KHMT_2025.skills.map((c,i)=>({...c,stt:String(i+1)}));
 
         const gradesList = getLatestCourses((currentUser.stats && currentUser.stats.gradesList) ? currentUser.stats.gradesList : []);
         const tbody = document.getElementById('course-table-body-skills');
@@ -2460,6 +3437,7 @@ if (window.location.pathname.includes('module-skills.html')) {
             tbody.appendChild(tr);
         });
 
+        passedCreds = getCurriculumCredits(gradesList, "skills");
         const percent = Math.min(Math.round((passedCreds / totalCreds) * 100), 100) || 0;
         const remainingCreds = Math.max(0, totalCreds - passedCreds);
 
@@ -2515,9 +3493,7 @@ if (window.location.pathname.includes('module-it.html')) {
         document.getElementById('display-fullname').textContent = currentUser.fullname;
         document.getElementById('display-mssv').textContent = `MSSV: ${currentUser.studentId}`;
 
-        const courseData = [
-            { stt: "1", code: "CSC00004", name: "Nhập môn CNTT", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" }
-        ];
+        const courseData = CTDT_KHMT_2025.it.map((c,i)=>({...c,stt:String(i+1)}));
 
         const gradesList = getLatestCourses((currentUser.stats && currentUser.stats.gradesList) ? currentUser.stats.gradesList : []);
         const tbody = document.getElementById('course-table-body-it');
@@ -2621,25 +3597,14 @@ if (window.location.pathname.includes('module-language.html')) {
         document.getElementById('display-mssv').textContent = `MSSV: ${currentUser.studentId}`;
 
         // Danh sách môn học chuẩn của nhóm Ngoại ngữ - GDTC - GDQP-AN (Tổng: 20 tín chỉ, 7 môn)
-        const courseData = [
-            { isHeader: true, name: "a. Ngoại ngữ" },
-            { stt: "1", code: "ADD00031", name: "Anh văn 1", tc: 3, type: "", lt: 30, th: 30, bt: 0, req: "" },
-            { stt: "2", code: "ADD00032", name: "Anh văn 2", tc: 3, type: "", lt: 30, th: 30, bt: 0, req: "" },
-            { stt: "3", code: "ADD00033", name: "Anh văn 3", tc: 3, type: "", lt: 30, th: 30, bt: 0, req: "" },
-            { stt: "4", code: "ADD00034", name: "Anh văn 4", tc: 3, type: "", lt: 30, th: 30, bt: 0, req: "" },
-            { isHeader: true, name: "b. Giáo dục thể chất" },
-            { stt: "1", code: "BAA00021", name: "Thể dục 1", tc: 2, type: "BB", lt: 15, th: 30, bt: 0, req: "" },
-            { stt: "2", code: "BAA00022", name: "Thể dục 2", tc: 2, type: "BB", lt: 15, th: 30, bt: 0, req: "" },
-            { isHeader: true, name: "c. Giáo dục quốc phòng và an ninh" },
-            { stt: "1", code: "BAA00030", name: "Giáo dục QP-AN", tc: 4, type: "BB", lt: "", th: "", bt: "", req: "" }
-        ];
+        const courseData = CTDT_KHMT_2025.language.map((c,i)=>({...c,stt:String(i+1)}));
 
         const gradesList = getLatestCourses((currentUser.stats && currentUser.stats.gradesList) ? currentUser.stats.gradesList : []);
         const tbody = document.getElementById('course-table-body-lang');
         
         let passedCreds = 0, passedCourses = 0, failedCourses = 0;
         const totalCreds = 20; 
-        const totalCourses = 7;
+        const totalCourses = courseData.length;
         const processedCodes = new Set();
 
         courseData.forEach(c => {
@@ -2749,15 +3714,7 @@ if (window.location.pathname.includes('module-foundation.html')) {
         document.getElementById('display-mssv').textContent = `MSSV: ${currentUser.studentId}`;
 
         // Danh sách môn học chuẩn của nhóm Cơ sở ngành (Mục tiêu: 38 tín chỉ)
-        const courseData = [
-            { stt: "1", code: "CSC10003", name: "Phương pháp lập trình hướng đối tượng", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "2", code: "CSC10004", name: "Cấu trúc dữ liệu và giải thuật", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "TQ:<br>Vi tích phân 1" },
-            { stt: "3", code: "CSC10006", name: "Cơ sở dữ liệu", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "4", code: "CSC10007", name: "Hệ điều hành", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "5", code: "CSC10008", name: "Mạng máy tính", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "6", code: "CSC10009", name: "Hệ thống máy tính", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "10", code: "CSC14004", name: "Cơ sở trí tuệ nhân tạo", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" }
-        ];
+        const courseData = CTDT_KHMT_2025.foundation.map((c,i)=>({...c,stt:String(i+1)}));
 
         const gradesList = getLatestCourses((currentUser.stats && currentUser.stats.gradesList) ? currentUser.stats.gradesList : []);
         const tbody = document.getElementById('course-table-body-foundation');
@@ -2871,15 +3828,7 @@ if (window.location.pathname.includes('module-major.html')) {
         document.getElementById('display-mssv').textContent = `MSSV: ${currentUser.studentId}`;
 
         // Danh sách môn học chuẩn của nhóm Chuyên ngành (Mục tiêu: 34 tín chỉ)
-        const courseData = [
-            { stt: "1", code: "CSC14001", name: "Automata và ngôn ngữ hình thức", tc: 4, type: "TC", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "2", code: "CSC14002", name: "Các hệ cơ sở tri thức", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "3", code: "CSC14004", name: "Khai thác dữ liệu và ứng dụng", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "4", code: "CSC14005", name: "Nhập môn học máy", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "5", code: "CSC14006", name: "Nhận dạng", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "6", code: "CSC14101", name: "Ẩn dữ liệu và chia sẻ thông tin", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" },
-            { stt: "7", code: "CSC11120", name: "Bảo mật web và thiết bị di động", tc: 4, type: "BB", lt: 45, th: 30, bt: 0, req: "" }
-        ];
+        const courseData = CTDT_KHMT_2025.major.map((c,i)=>({...c,stt:String(i+1),name:(c.section==='major_core'?'[Nhóm ≥16 TC] ':'[Nhóm ≥8 TC] ')+c.name}));
 
         const gradesList = getLatestCourses((currentUser.stats && currentUser.stats.gradesList) ? currentUser.stats.gradesList : []);
         const tbody = document.getElementById('course-table-body-major');
@@ -2893,7 +3842,7 @@ if (window.location.pathname.includes('module-major.html')) {
             // Khớp mã học phần (hỗ trợ cả CSC14004 và CSC14003 cho môn Khai thác dữ liệu)
             const gradeInfo = gradesList.find(g => {
                 const gCode = g.code.toUpperCase();
-                return gCode === c.code.toUpperCase() || (c.code === "CSC14004" && gCode === "CSC14003");
+                return gCode === c.code.toUpperCase();
             });
 
             let statusClass = 'st-chua-hoc';
@@ -2933,6 +3882,7 @@ if (window.location.pathname.includes('module-major.html')) {
         });
 
         // 1. Cập nhật thanh tiến độ góc phải (đồng bộ với trang Khung CTĐT)
+        passedCreds = getCurriculumCredits(gradesList, "major");
         const percent = Math.min(Math.round((passedCreds / totalCreds) * 100), 100) || 0;
         const remainingCreds = Math.max(0, totalCreds - passedCreds);
 
@@ -3989,3 +4939,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const btn=document.querySelector('.btn-export');
     if (btn) btn.addEventListener('click', ()=>{const u=getCurrentUser();if(u)exportGraduationReport(u);else alert('Vui lòng đăng nhập trước khi xuất báo cáo.');});
 });
+
+// Trang chi tiết kiến thức tốt nghiệp theo CTĐT KHMT K2025.
+if(window.location.pathname.includes('module-graduation.html')){
+ const user=getCurrentUser();
+ if(user){
+  document.getElementById('display-fullname').textContent=user.fullname||'';
+  document.getElementById('display-mssv').textContent='MSSV: '+(user.studentId||'');
+  const grades=getLatestCourses(user.stats?.gradesList||[]);
+  const earned=getCurriculumCredits(grades,'graduation');
+  const percent=Math.round(earned/10*100);
+  document.getElementById('graduation-course-progress-fill').style.width=percent+'%';
+  document.getElementById('graduation-course-progress-text').textContent=percent+'%';
+  const body=document.getElementById('graduation-course-rows');
+  for(const course of CTDT_KHMT_2025.graduation){
+   const grade=grades.find(g=>String(g.code||'').toUpperCase()===course.code);
+   const row=document.createElement('tr');
+   const mode=course.section==='grad_full'?'Phương án 1 hoặc 2':course.section==='grad_project'?'Phương án 3 (6 TC)':'Phương án 3 (chọn 4 TC)';
+   for(const value of [mode,course.code,course.name,course.tc,isPassedCourse(grade)?'ĐẠT':isFailedCourse(grade)?'CHƯA ĐẠT':'Chưa học']){
+     const cell=document.createElement('td');cell.textContent=String(value);row.appendChild(cell);
+   }body.appendChild(row);
+  }
+ }
+}

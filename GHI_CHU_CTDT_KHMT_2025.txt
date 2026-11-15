@@ -1,0 +1,7 @@
+Đã cập nhật CTĐT Khoa học máy tính K2025 theo PDF được cung cấp (28 trang đầu).
+Cơ cấu 138 tín chỉ: Đại cương 56 + Cơ sở ngành 38 + Chuyên ngành 34 + Tốt nghiệp 10.
+Danh mục học phần bao gồm học phần tự chọn - không cần học toàn bộ danh sách.
+Đã bổ sung phần Tốt nghiệp riêng, chi tiết mã môn/tín chỉ/loại học phần, nhóm tự chọn Toán/KHTN/Môi trường và danh mục chuyên ngành KHMT.
+Lưu ý: Bản PDF được gửi chỉ gồm 28 trang trong tài liệu 67 trang, nên không thể kiểm tra mọi thông tin của toàn bộ phụ lục.
+Quy định cộng tín chỉ GDTC/GDQP ở PDF khác thiết kế website theo các yêu cầu cũ; website tiếp tục loại nhóm đó khỏi 138 TC chuyên môn và GPA.
+Để giữ dữ liệu người dùng, website không tự sửa/xóa bản ghi điểm đã lưu (kể cả mã cũ BAA00105/BAA00011).

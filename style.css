@@ -2760,3 +2760,6 @@ select.gray-pill, input.gray-pill {
 #m-sem-group, #e-sem-group { display: flex; flex-wrap: wrap; gap: 8px; }
 #m-sem-group .pill-btn, #e-sem-group .pill-btn { white-space: nowrap; min-height: 36px; }
 .semester-optional-note { display: block; margin-top: 7px; font-size: 12px; line-height: 1.5; color: #64748b; }
+
+/* Thuyết minh chương trình đào tạo KHMT K2025 */
+.curriculum-explainer{background:#eff6ff;border-left:4px solid #2563eb;border-radius:8px;margin:16px 20px;padding:13px 16px;line-height:1.6;color:#17365d;font-size:13px;}

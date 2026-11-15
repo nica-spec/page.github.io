@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <script src="auth-guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiến thức tốt nghiệp - FIT@HCMUS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <div class="logo-hcmus">
+                <span class="logo-hcm">HCM</span>
+                <span class="logo-us">US</span>
+            </div>
+            <div class="logo-text">
+                <div class="brand-title">fit@hcmus</div>
+                <div class="brand-subtitle">Khoa Công nghệ thông tin</div>
+            </div>
+        </div>
+        <div class="user-profile">
+            <div class="user-name" id="display-fullname">Tên Sinh Viên</div>
+            <div class="user-mssv" id="display-mssv">MSSV: ---------</div>
+        </div>
+    </header>
+
+    <!-- Layout Wrapper -->
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <a href="dashboard.html" class="sidebar-item">
+                <i class="fa-solid fa-chart-line sidebar-icon"></i><span>Dashboard</span>
+            </a>
+            <a href="program.html" class="sidebar-item active">
+                <i class="fa-solid fa-layer-group sidebar-icon"></i><span>Khung CTĐT</span>
+            </a>
+            <a href="grades.html" class="sidebar-item">
+                <span class="sidebar-icon" style="font-weight: 900; font-style: italic; text-decoration: underline; text-decoration-style: double;">100</span><span>Bảng điểm</span>
+            </a>
+            <a href="goals.html" class="sidebar-item"><i class="fa-solid fa-bullseye sidebar-icon"></i><span>Mục tiêu</span></a>
+            <a href="graduation.html" class="sidebar-item"><i class="fa-solid fa-user-graduate sidebar-icon"></i><span>Tốt nghiệp</span></a>
+            <a href="settings.html" class="sidebar-item"><i class="fa-solid fa-gear sidebar-icon"></i><span>Cài đặt</span></a>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="program-content" style="align-items: flex-start; justify-content: center;">
+            <div class="detail-card">
+                <!-- Header Component (Tone Vàng) -->
+                <div class="detail-header" style="background-color: #fef9c3;">
+                    <a href="program.html" class="btn-back" style="background-color: #fbd38d; color: #ffffff; transition: 0.2s;">
+                        <i class="fa-solid fa-arrow-left-long"></i>
+                    </a>
+                    <div class="detail-title-box">
+                        <div class="detail-icon" style="background-color: #fef08a; color: #eab308;">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div>
+                            <div class="detail-title">Kiến thức tốt nghiệp</div>
+                            <div class="detail-subtitle">Khoa học máy tính K2025: chọn ≥16 TC nhóm chuyên ngành cốt lõi, ≥8 TC tự chọn chuyên ngành, bổ sung tự chọn tự do đủ 34 TC</div>
+                        </div>
+                    </div>
+                    <div class="detail-progress-box">
+                        <span class="detail-credits-total">10 tín chỉ</span>
+                        <div class="detail-progress-bar" style="background-color: #fef08a;">
+                            <div class="detail-progress-fill" id="graduation-course-progress-fill" style="background-color: #fbbf24; width: 0%;"></div>
+                        </div>
+                        <span class="detail-progress-text" id="graduation-course-progress-text" style="color: #eab308;">0%</span>
+                    </div>
+                </div>
+
+                <p class="curriculum-explainer">Theo CTĐT K2025: các học phần dưới đây đều là <strong>học phần lựa chọn (TC)</strong>. Danh sách là tập môn được chọn, không phải toàn bộ môn bắt buộc. Tích lũy tối thiểu 16 TC từ nhóm 7.2.2.1.1, tối thiểu 8 TC từ 7.2.2.1.2, và đủ 34 TC chuyên ngành bằng các học phần hợp lệ.</p>
+                <div class="curriculum-explainer"><strong>CTĐT KHMT K2025 – Mục 7.2.3.1:</strong> tích lũy tối thiểu 10 tín chỉ, chọn đúng một trong ba phương án (không cộng cả ba phương án).</div>
+                <div class="table-wrapper"><table class="course-table"><thead><tr><th>Phương án</th><th>Mã học phần</th><th>Tên học phần</th><th>Tín chỉ</th><th>Trạng thái</th></tr></thead><tbody id="graduation-course-rows"></tbody></table></div>
+                <p class="curriculum-explainer">Phương án 1: Khóa luận tốt nghiệp (10 TC). Phương án 2: Thực tập tốt nghiệp (10 TC). Phương án 3: Thực tập dự án tốt nghiệp (6 TC) và một học phần lựa chọn (4 TC).</p>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
