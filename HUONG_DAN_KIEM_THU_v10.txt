@@ -1,0 +1,11 @@
+FIT@HCMUS v10 - KIỂM TRA GIỚI HẠN ĐIỂM 0-10
+
+Đã bổ sung kiểm tra chung cho: thêm/sửa thủ công, nhập JSON/XLS/XLSX, môn giả định.
+File nhập phải hoàn toàn hợp lệ trước khi được lưu, nếu có lỗi sẽ báo dòng và giữ nguyên dữ liệu cũ.
+Điểm 0 và 10 hợp lệ; -1, 10.1, NaN, trống và chuỗi chữ không hợp lệ.
+
+Kiểm tra nhanh:
+1. Vào Bảng điểm -> Nhập file, thử file JSON có score = -1 hoặc 11.
+2. Xác nhận báo lỗi và bảng điểm không thay đổi.
+3. Vào Mục tiêu -> Thêm môn giả định, thử điểm -1, 11, trống rồi 0 và 10.
+4. Kiểm tra sửa điểm thủ công với các giá trị tương tự.

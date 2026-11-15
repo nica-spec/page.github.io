@@ -1,0 +1,6 @@
+FIT@HCMUS v14 – HK3 trong form nhập và sửa bảng điểm
+- Biểu mẫu Nhập thủ công có HK1, HK2, HK3 – Học kỳ hè.
+- Biểu mẫu Sửa học phần có cùng 3 lựa chọn.
+- HK3 lưu sem = "3" và được lọc qua HK3 ở Bảng điểm.
+- Đặt lại chọn HK1 khi mở một biểu mẫu nhập mới; sửa môn cũ tự chọn đúng HK.
+- Học kỳ hè là tùy chọn; không bắt buộc nhập môn trong HK3.

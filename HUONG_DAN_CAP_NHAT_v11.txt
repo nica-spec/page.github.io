@@ -1,0 +1,12 @@
+FIT@HCMUS v11 — Tooltip chi tiết biểu đồ GPA học kỳ
+
+1. Mở index.html bằng Live Server, đăng nhập, sau đó vào Dashboard.
+2. Di chuột đến từng điểm trên biểu đồ "Xu hướng điểm trung bình qua các kì".
+3. Xem thông tin GPA học kỳ, tín chỉ đăng ký, tín chỉ tích lũy, danh sách môn đạt/chưa đạt.
+4. Nhấp vào điểm để ghim bảng thông tin; nhấn × để đóng.
+5. Có thể chọn học kỳ bằng các nút bên dưới biểu đồ (cho điện thoại và bàn phím).
+6. Các môn Anh văn/GDTC/GDQP-AN được liệt kê trong số môn và tín chỉ đăng ký,
+   nhưng không cộng vào tín chỉ tích lũy hoặc GPA.
+
+Lưu ý: Website đang lưu một lần học mới nhất cho mỗi mã môn; lịch sử các lần học
+đã bị thay thế không thể phục hồi để vẽ lại GPA học kỳ cũ.

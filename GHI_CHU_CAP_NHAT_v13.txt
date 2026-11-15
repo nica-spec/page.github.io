@@ -1,0 +1,1 @@
+FIT@HCMUS v13: Bổ sung học kỳ 3 (HK3 – Học kỳ hè) là lựa chọn tùy chọn trong bộ lọc Bảng điểm, thêm học phần và sửa học phần. HK3 luôn xuất hiện trong bộ lọc ngay cả khi chưa có dữ liệu. Chọn HK3 không thay đổi dữ liệu hay GPA tổng; chỉ lọc danh sách.

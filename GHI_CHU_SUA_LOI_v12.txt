@@ -1,0 +1,9 @@
+FIT@HCMUS v12 - Chỉnh sửa lỗi trạng thái điểm và tín chỉ
+
+1) Điểm tổng kết dùng độ chính xác 1 chữ số thập phân như giá trị lưu/hiển thị. Trạng thái Đ/CĐ được xác định từ điểm đã làm tròn; điểm 4.999999999999999 được lưu 5.0 và xác định Đ.
+2) Các hàm đánh giá trạng thái Đ/CĐ dùng chung isPassedCourse / isFailedCourse thay vì chuỗi trạng thái thiếu nhất quán. Tự động chuẩn hóa dữ liệu tài khoản cũ khi mở trang (cả currentUser và users trong localStorage).
+3) Nhập JSON/XLSX và thêm/sửa học phần đồng bộ trạng thái với điểm đã chuẩn hóa. Điểm thành phần vẫn giữ nguyên để đối chiếu.
+4) Sửa thuộc tính HTML không hợp lệ trong grades.html.
+5) program.html làm rõ nhóm Chuyên nghiệp có 82 TC yêu cầu, nhưng hai nhóm đang được thể hiện chỉ cộng thành 72 TC. 10 TC chưa được phân nhóm trong bản giao diện; chưa tự gán thêm môn/tín chỉ vì cần đối chiếu CTĐT gốc.
+
+Lưu ý: Website hiện là bản minh họa và sử dụng localStorage; nên xuất JSON sao lưu trước khi cập nhật.
