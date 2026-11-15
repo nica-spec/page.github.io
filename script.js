@@ -993,6 +993,14 @@ function k2025PriorLabel(course) {
   }).join('; ');
 }
 
+// Đồng bộ trường req cho mọi bảng học phần, kể cả các trang cũ còn render c.req.
+// Nguồn K2025 chỉ liệt kê học phần ĐỀ NGHỊ học trước, không xác nhận tiên quyết bắt buộc.
+Object.values(CTDT_KHMT_2025).forEach(group => {
+  group.forEach(course => {
+    course.req = k2025PriorLabel(course);
+  });
+});
+
 const CTDT_REQUIREMENTS = Object.freeze({general:56,politics:14,skills:2,math:36,it:4,foundation:38,major:34,graduation:10,total:138});
 const CTDT_COURSE_INDEX = Object.fromEntries(Object.entries(CTDT_KHMT_2025).flatMap(([group,items])=>items.map(c=>[c.code,{...c,group}])));
 function getCurriculumCredits(grades,group){
