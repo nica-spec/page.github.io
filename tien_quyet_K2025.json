@@ -1,0 +1,6 @@
+{
+  "source": "Chưa có danh sách học phần tiên quyết bắt buộc K2025 được xác minh; tài liệu hiện có chỉ là danh sách đề nghị học trước.",
+  "verified": false,
+  "courses": {},
+  "note": "Chỉ điền courses khi có nguồn quy định môn tiên quyết bắt buộc. Mảng rỗng [] chỉ dùng khi đã xác nhận học phần không có tiên quyết; thiếu key nghĩa là chưa rõ."
+}
