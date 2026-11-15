@@ -10,6 +10,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- External CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Chỉ áp dụng cho hai trang xác thực; không ảnh hưởng các trang khác. -->
+    <style>
+        #auth-form .form-actions.auth-submit-row {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100%;
+            margin: 20px 0 0;
+            padding: 0 !important;
+            gap: 0;
+        }
+        #auth-form .auth-submit-row .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto !important;
+            text-align: center;
+            min-width: 144px;
+        }
+    </style>
 </head>
 <body>
 
@@ -50,7 +71,7 @@
                     <label for="fullname" class="form-label">Họ và tên:</label>
                     <div class="input-wrapper">
                         <i class="fa-regular fa-user input-icon"></i>
-                        <input type="text" id="fullname" class="form-control" autocomplete="off">
+                        <input type="text" id="fullname" name="fullname" class="form-control" autocomplete="name">
                     </div>
                 </div>
 
@@ -58,7 +79,7 @@
                     <label for="student-id" class="form-label">Mã số sinh viên:</label>
                     <div class="input-wrapper input-wrapper-medium">
                         <span class="input-icon text-icon">ID</span>
-                        <input type="text" id="student-id" class="form-control" autocomplete="off">
+                        <input type="text" id="student-id" name="student-id" class="form-control" autocomplete="username">
                     </div>
                 </div>
 
@@ -66,7 +87,7 @@
                     <label for="password" class="form-label">Mật khẩu:</label>
                     <div class="input-wrapper input-wrapper-medium">
                         <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="password" id="password" class="form-control">
+                        <input type="password" id="password" name="password" class="form-control" autocomplete="new-password">
                     </div>
                 </div>
 
@@ -74,12 +95,12 @@
                     <label for="confirm-password" class="form-label">Xác nhận mật khẩu:</label>
                     <div class="input-wrapper input-wrapper-medium">
                         <i class="fa-solid fa-lock input-icon"></i>
-                        <input type="password" id="confirm-password" class="form-control">
+                        <input type="password" id="confirm-password" name="confirm-password" class="form-control" autocomplete="new-password">
                     </div>
                 </div>
 
-                <div class="form-actions register-actions" style="justify-content:center; padding-left:0;">
-                    <button type="submit" class="btn-submit">Đăng ký</button>
+                <div class="form-actions auth-submit-row">
+                    <button type="submit" class="btn-submit" id="auth-submit">Đăng ký</button>
                 </div>
 
                 <div class="divider"></div>
@@ -91,19 +112,42 @@
         </div>
     </div>
 
-    <script src="script.js?v=20261115-auth-fix"></script>
+    <script src="script.js?v=20261115-auth-enter-center-v2"></script>
     <script>
-      // Cả Enter và nút bấm đều kích hoạt submit của biểu mẫu.
-      // Chỉ gọi hàm xử lý một lần; chặn chuyển trang mặc định.
-      document.getElementById('auth-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        if (typeof registerUser !== 'function') {
-          console.error('Không tải được hàm registerUser từ script.js.');
-          alert('Không tải được chức năng xác thực. Vui lòng kiểm tra file script.js trên GitHub Pages và tải lại trang.');
-          return;
+    (function () {
+        const form = document.getElementById('auth-form');
+        if (!form) return;
+
+        // Cả Enter và nút xác nhận đều đi qua một hàm.
+        function performAuth() {
+            if (typeof window.registerUser !== 'function') {
+                console.error('Không tìm thấy registerUser() trong script.js.');
+                alert('Không tải được chức năng xác thực. Hãy kiểm tra script.js rồi tải lại trang.');
+                return;
+            }
+            try {
+                window.registerUser();
+            } catch (error) {
+                console.error('Lỗi xác thực:', error);
+                alert('Có lỗi khi xử lý thông tin. Hãy mở F12 → Console để xem chi tiết.');
+            }
         }
-        registerUser();
-      });
+
+        // Nhấn nút xác nhận hoặc submit biểu mẫu bằng bàn phím.
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            performAuth();
+        });
+
+        // Enter tại bất kỳ ô nhập nào cũng xử lý ngay, kể cả khi submit ngầm bị chặn.
+        form.addEventListener('keydown', function (event) {
+            if (event.key !== 'Enter' || event.isComposing || event.repeat || event.ctrlKey || event.altKey || event.metaKey) return;
+            if (!event.target.matches('input')) return;
+            event.preventDefault();
+            event.stopPropagation();
+            performAuth();
+        }, true);
+    })();
     </script>
 
 </body>
